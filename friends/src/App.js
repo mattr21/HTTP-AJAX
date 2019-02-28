@@ -75,7 +75,7 @@ class App extends Component {
       .put(`http://localhost:5000/friends/${friend.id}`, friend)
       .then(res => {
         this.setState({
-          activeItem: null,
+          activeFriend: null,
           friends: res.data
         });
         this.props.history.push("/");
@@ -99,7 +99,7 @@ class App extends Component {
         <NavLink to="/"><button>Home</button></NavLink>
         <NavLink to="/friend-form"><button>Add Friend</button></NavLink>
         <Route exact path="/" render={ props => <FriendsList {...this.state} {...props} deleteFriend={this.deleteFriend} setUpdateForm={this.setUpdateForm} /> } />
-        <Route  path="/friend-form"  render={ props => <FriendForm {...props} addFriend={this.addFriend} /> } />
+        <Route  path="/friend-form"  render={ props => <FriendForm {...props} addFriend={this.addFriend} updateFriend={this.updateFriend} activeFriend={this.state.activeFriend} /> } />
       </div>
     );
   }

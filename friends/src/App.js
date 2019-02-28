@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import FriendsList from './components/FriendsList'
 import axios from 'axios';
-import { Route } from 'react-router-dom';
+import { Route, NavLink } from 'react-router-dom';
 import FriendForm from './components/FriendForm'
 
 class App extends Component { 
@@ -40,6 +40,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <NavLink to="/"><button>Home</button></NavLink>
+        <NavLink to="/friend-form"><button>Add Friend</button></NavLink>
         <Route exact path="/" render={ props => <FriendsList {...this.state} {...props} /> } />
         <Route  path="/friend-form"  render={ props => <FriendForm {...props} /> } />
       </div>

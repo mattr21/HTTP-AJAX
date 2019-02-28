@@ -11,6 +11,7 @@ class App extends Component {
     this.state = {
       friends: [],
       error: ''
+      activeFriend: 
     }
   }
 
@@ -37,13 +38,28 @@ class App extends Component {
   //   }
   // }
 
+  addFriend = (e, item) => {
+    e.preventDefault();
+    axios
+      .post('http://localhost:5000/friends', item)
+      .then(res => {
+        this.setState({
+          friends: res.data
+        });
+        this.props.history.push('/');
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   render() {
     return (
       <div className="App">
         <NavLink to="/"><button>Home</button></NavLink>
         <NavLink to="/friend-form"><button>Add Friend</button></NavLink>
         <Route exact path="/" render={ props => <FriendsList {...this.state} {...props} /> } />
-        <Route  path="/friend-form"  render={ props => <FriendForm {...props} /> } />
+        <Route  path="/friend-form"  render={ props => <FriendForm {...props} addFriend={addFriend} /> } />
       </div>
     );
   }

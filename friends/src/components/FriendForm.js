@@ -24,10 +24,28 @@ changeHandler = e => {
     }));
 };
 
+handleSubmit = e => {
+    // if (this.props.activeItem) {
+    //   this.props.updateItem(e, this.state.item);
+    // } else {
+      this.props.addItem(e, this.state.item);
+    // }
+    this.setState({
+      item: {
+        name: '',
+        price: '',
+        imageUrl: '',
+        description: '',
+        shipping: ''
+      }
+    });
+  };
+
+
 render() {
     return (
         <div>
-            <form>
+            <form onSubmit={this.props.addFriend}>
                 <input 
                     type="text"
                     name="name"

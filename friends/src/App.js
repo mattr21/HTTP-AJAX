@@ -11,6 +11,7 @@ class App extends Component {
     this.state = {
       friends: [],
       error: '',
+      activeFriend: null,
     }
   }
 
@@ -68,12 +69,36 @@ class App extends Component {
       });
   };
 
+  updateFriend = (e, friend) => {
+    e.preventDefault();
+    axios
+      .put(`http://localhost:5000/friends/${friend.id}`, friend)
+      .then(res => {
+        this.setState({
+          activeItem: null,
+          friends: res.data
+        });
+        this.props.history.push("/");
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  setUpdateForm = (e, friend) => {
+    e.preventDefault();
+    this.setState({
+      activeFriend: friend
+    });
+    this.props.history.push("/friend-form");
+  };
+
   render() {
     return (
       <div className="App">
         <NavLink to="/"><button>Home</button></NavLink>
         <NavLink to="/friend-form"><button>Add Friend</button></NavLink>
-        <Route exact path="/" render={ props => <FriendsList {...this.state} {...props} deleteFriend={this.deleteFriend} /> } />
+        <Route exact path="/" render={ props => <FriendsList {...this.state} {...props} deleteFriend={this.deleteFriend} setUpdateForm={this.setUpdateForm} /> } />
         <Route  path="/friend-form"  render={ props => <FriendForm {...props} addFriend={this.addFriend} /> } />
       </div>
     );

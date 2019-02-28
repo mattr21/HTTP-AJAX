@@ -28,15 +28,13 @@ handleSubmit = e => {
     // if (this.props.activeItem) {
     //   this.props.updateItem(e, this.state.item);
     // } else {
-      this.props.addItem(e, this.state.item);
+    this.props.addFriend(e, this.state.friend);
     // }
     this.setState({
-      item: {
+      friend: {
         name: '',
-        price: '',
-        imageUrl: '',
-        description: '',
-        shipping: ''
+        age: '',
+        email: '',
       }
     });
   };
@@ -45,7 +43,7 @@ handleSubmit = e => {
 render() {
     return (
         <div>
-            <form onSubmit={this.props.addFriend}>
+            <form onSubmit={this.handleSubmit}>
                 <input 
                     type="text"
                     name="name"

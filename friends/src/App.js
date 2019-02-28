@@ -10,8 +10,7 @@ class App extends Component {
     super();
     this.state = {
       friends: [],
-      error: ''
-      activeFriend: 
+      error: '',
     }
   }
 
@@ -43,6 +42,7 @@ class App extends Component {
     axios
       .post('http://localhost:5000/friends', item)
       .then(res => {
+        console.log(res)
         this.setState({
           friends: res.data
         });
@@ -59,7 +59,7 @@ class App extends Component {
         <NavLink to="/"><button>Home</button></NavLink>
         <NavLink to="/friend-form"><button>Add Friend</button></NavLink>
         <Route exact path="/" render={ props => <FriendsList {...this.state} {...props} /> } />
-        <Route  path="/friend-form"  render={ props => <FriendForm {...props} addFriend={addFriend} /> } />
+        <Route  path="/friend-form"  render={ props => <FriendForm {...props} addFriend={this.addFriend} /> } />
       </div>
     );
   }

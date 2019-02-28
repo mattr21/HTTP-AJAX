@@ -37,10 +37,10 @@ class App extends Component {
   //   }
   // }
 
-  addFriend = (e, item) => {
+  addFriend = (e, friend) => {
     e.preventDefault();
     axios
-      .post('http://localhost:5000/friends', item)
+      .post('http://localhost:5000/friends', friend)
       .then(res => {
         console.log(res)
         this.setState({
@@ -53,12 +53,27 @@ class App extends Component {
       });
   };
 
+  deleteFriend = (e, id) => {
+    e.preventDefault();
+    axios
+      .delete(`http://localhost:5000/friends/${id}`)
+      .then(res => {
+        this.setState({
+          friends: res.data
+        });
+        this.props.history.push("/");
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   render() {
     return (
       <div className="App">
         <NavLink to="/"><button>Home</button></NavLink>
         <NavLink to="/friend-form"><button>Add Friend</button></NavLink>
-        <Route exact path="/" render={ props => <FriendsList {...this.state} {...props} /> } />
+        <Route exact path="/" render={ props => <FriendsList {...this.state} {...props} deleteFriend={this.deleteFriend} /> } />
         <Route  path="/friend-form"  render={ props => <FriendForm {...props} addFriend={this.addFriend} /> } />
       </div>
     );

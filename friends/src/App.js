@@ -75,7 +75,7 @@ class App extends Component {
       .put(`http://localhost:5000/friends/${friend.id}`, friend)
       .then(res => {
         this.setState({
-          activeFriend: null,
+          activeFriend: null, 
           friends: res.data
         });
         this.props.history.push("/");

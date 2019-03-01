@@ -1,14 +1,15 @@
 import React from 'react';
 
 const FriendsList = props => {
-    console.log(props, "FriendsList");
+    const { friends } = props
     return (
         <div>
-            {props.friends.map(friend => 
-                <div>
+            {friends.map(friend => 
+                <div key={friend.id}>
                     <p>{friend.name}</p>
                     <p>{friend.age}</p>
                     <p>{friend.email}</p>
+                    <p><button onClick={e => props.deleteFriend(e, friend.id)}>X</button> <button onClick={e => props.setUpdateForm(e, friend)}>Update</button></p>
                 </div>
                 )}
         </div>
